@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Atelier Mono — Your Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #faf9f7;
+    --paper-dim: #f0eeea;
+    --ink: #1a1a18;
+    --ink-55: rgba(26, 26, 24, 0.55);
+    --ink-70: rgba(26, 26, 24, 0.7);
+    --line: rgba(0, 0, 0, 0.12);
+    --line-strong: rgba(0, 0, 0, 0.35);
+    --paper-line: rgba(250, 249, 247, 0.16);
+    --paper-55: rgba(250, 249, 247, 0.55);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page { size: A4; margin: 0; }
+
+  html, body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    padding: 18mm 16mm 14mm;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ---------- Sheet label (drawing-set title block) ---------- */
+  .sheet-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 10px 0;
+    font-size: 8.5pt;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-55);
+  }
+  .sheet-label-light {
+    border-color: var(--paper-line);
+    color: var(--paper-55);
+  }
+
+  /* ---------- Page one : cover / access ---------- */
+
+  .masthead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: 12px;
+  }
+  .brand {
+    font-size: 12pt;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .masthead-meta {
+    font-size: 8.5pt;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-55);
+  }
+
+  .manifesto {
+    padding: 26mm 0 20mm;
+  }
+  .manifesto h1 {
+    font-size: 33pt;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    max-width: 18em;
+  }
+  .manifesto h1 em {
+    font-style: normal;
+    color: var(--ink-55);
+  }
+  .manifesto p {
+    margin-top: 9mm;
+    font-size: 10.5pt;
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--ink-70);
+    max-width: 46ch;
+  }
+
+  /* ---------- Access rows ---------- */
+
+  .access { border-top: 1px solid var(--line-strong); }
+
+  .access-row {
+    display: grid;
+    grid-template-columns: 34mm 1fr;
+    gap: 8mm;
+    padding: 9mm 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+
+  .access-no {
+    font-size: 8.5pt;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-55);
+  }
+
+  .access-title {
+    font-size: 17pt;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .access-desc {
+    margin-top: 3mm;
+    font-size: 9.5pt;
+    line-height: 1.6;
+    color: var(--ink-70);
+    max-width: 60ch;
+  }
+
+  .access-link {
+    display: inline-block;
+    margin-top: 4.5mm;
+    font-size: 10pt;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    border-bottom: 1px solid var(--line-strong);
+    padding-bottom: 2px;
+  }
+
+  .pill {
+    display: inline-block;
+    margin-top: 4.5mm;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 9999px;
+    padding: 7px 16px;
+    font-size: 9.5pt;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .pill + .href-note {
+    display: block;
+    margin-top: 2.5mm;
+    font-size: 8pt;
+    letter-spacing: 0.04em;
+    color: var(--ink-55);
+  }
+
+  .footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-top: 1px solid var(--line);
+    padding-top: 10px;
+    font-size: 8pt;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-55);
+  }
+
+  /* ---------- Page two : dark, first steps ---------- */
+
+  .page-dark {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .page-dark .masthead-meta { color: var(--paper-55); }
+  .page-dark .masthead { border-color: var(--paper-line); }
+
+  .steps-heading {
+    padding: 20mm 0 14mm;
+    font-size: 26pt;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .steps-heading em { font-style: normal; color: var(--paper-55); }
+
+  .step {
+    display: grid;
+    grid-template-columns: 34mm 1fr;
+    gap: 8mm;
+    padding: 8mm 0;
+    border-top: 1px solid var(--paper-line);
+    align-items: baseline;
+  }
+  .step-no {
+    font-size: 8.5pt;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--paper-55);
+  }
+  .step-title {
+    font-size: 14pt;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+  }
+  .step-desc {
+    margin-top: 2.5mm;
+    font-size: 9.5pt;
+    line-height: 1.6;
+    color: var(--paper-55);
+    max-width: 62ch;
+  }
+  .step-desc strong { color: var(--paper); font-weight: 500; }
+
+  .footer-dark {
+    margin-top: auto;
+    border-top: 1px solid var(--paper-line);
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 8pt;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--paper-55);
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ SHEET 01 — ACCESS ============ -->
+  <section class="page">
+    <header class="masthead">
+      <div class="brand">Atelier Mono<sup style="font-weight:300">®</sup></div>
+      <div class="masthead-meta">Framer Template — Purchase Edition</div>
+    </header>
+    <div class="sheet-label">
+      <span>N° 01</span>
+      <span>Your Template</span>
+      <span>Sheet 01 / 02</span>
+    </div>
+
+    <div class="manifesto">
+      <h1>Thank you.<br /><em>The work begins quietly.</em></h1>
+      <p>
+        Atelier Mono is now yours. Everything you need is on this sheet —
+        one link to duplicate the template into your Framer workspace,
+        and one to revisit the living preview whenever you need a reference.
+      </p>
+    </div>
+
+    <div class="access">
+      <div class="access-row">
+        <div class="access-no">N° 01 — Remix</div>
+        <div>
+          <div class="access-title">Duplicate to your workspace</div>
+          <p class="access-desc">
+            Open the remix link while signed in to Framer. The full project —
+            every page, CMS collection, component, and breakpoint — is copied
+            to your workspace, ready to edit.
+          </p>
+          <a class="pill" href="https://framer.com/remix/spMut2SA6TMjwJr3qPjm">Open remix link&nbsp;&nbsp;→</a>
+          <span class="href-note">framer.com/remix/spMut2SA6TMjwJr3qPjm</span>
+        </div>
+      </div>
+
+      <div class="access-row">
+        <div class="access-no">N° 02 — Preview</div>
+        <div>
+          <div class="access-title">The living reference</div>
+          <p class="access-desc">
+            The published template, exactly as intended — motion, spacing,
+            and type. Keep it open beside the editor while you make the
+            design your own.
+          </p>
+          <a class="access-link" href="https://atlier.framer.website">atlier.framer.website&nbsp;&nbsp;→</a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span>Atelier Mono</span>
+      <span>Editorial portfolio for architects</span>
+      <span>© 2026</span>
+    </footer>
+  </section>
+
+  <!-- ============ SHEET 02 — FIRST STEPS ============ -->
+  <section class="page page-dark">
+    <header class="masthead">
+      <div class="brand">Atelier Mono<sup style="font-weight:300">®</sup></div>
+      <div class="masthead-meta">Framer Template — Purchase Edition</div>
+    </header>
+    <div class="sheet-label sheet-label-light">
+      <span>N° 02</span>
+      <span>First Steps</span>
+      <span>Sheet 02 / 02</span>
+    </div>
+
+    <h2 class="steps-heading">A slow, deliberate start.<br /><em>Four steps, no more.</em></h2>
+
+    <div class="step">
+      <div class="step-no">Step — 01</div>
+      <div>
+        <div class="step-title">Remix the project</div>
+        <p class="step-desc">
+          Follow the remix link on Sheet 01. Framer places a full copy in your
+          workspace — nothing is shared, nothing is linked back.
+        </p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-no">Step — 02</div>
+      <div>
+        <div class="step-title">Replace the work</div>
+        <p class="step-desc">
+          Open the <strong>Projects</strong> CMS collection and swap in your own
+          buildings, images, and case studies. The Selected Works grid, tags,
+          and detail pages update themselves.
+        </p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-no">Step — 03</div>
+      <div>
+        <div class="step-title">Write your manifesto</div>
+        <p class="step-desc">
+          Section N° 01 opens the site with a statement, not a slogan.
+          Say what your practice believes — then let the numbered sections
+          carry the rest.
+        </p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-no">Step — 04</div>
+      <div>
+        <div class="step-title">Publish</div>
+        <p class="step-desc">
+          Connect your domain in <strong>Site Settings → Domains</strong> and
+          publish. One typeface, a stone-and-ivory palette, and motion that
+          whispers — your website now agrees with your point of view.
+        </p>
+      </div>
+    </div>
+
+    <footer class="footer-dark">
+      <span>Atelier Mono</span>
+      <span>Restraint is a feature</span>
+      <span>© 2026</span>
+    </footer>
+  </section>
+
+</body>
+</html>

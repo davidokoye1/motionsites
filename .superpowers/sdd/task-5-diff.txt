@@ -1,0 +1,177 @@
+## Files changed
+Files src/index.css and src/index.css differ
+Files src/sections/Journal.jsx and src/sections/Journal.jsx differ
+Files src/sections/Navbar.jsx and src/sections/Navbar.jsx differ
+
+## Full diff
+diff --color -ruN src/index.css src/index.css
+--- src/index.css	2026-07-16 19:16:03.119663429 +0000
++++ src/index.css	2026-07-16 19:17:18.791733853 +0000
+@@ -1292,6 +1292,25 @@
+   max-width: 40ch;
+ }
+ 
++.journal-all {
++  display: inline-flex;
++  align-items: center;
++  gap: 6px;
++  align-self: flex-start;
++  font-size: 12px;
++  font-weight: 500;
++  letter-spacing: 0.1em;
++  text-transform: uppercase;
++  color: var(--ink-55);
++  border-bottom: 1px solid var(--line-strong);
++  padding-bottom: 4px;
++  transition: color 0.25s ease;
++}
++
++.journal-all:hover {
++  color: var(--ink);
++}
++
+ /* ---------- Voices ---------- */
+ 
+ .voices {
+diff --color -ruN src/sections/Journal.jsx src/sections/Journal.jsx
+--- src/sections/Journal.jsx	2026-07-16 19:16:03.117870393 +0000
++++ src/sections/Journal.jsx	2026-07-16 19:17:15.927303065 +0000
+@@ -1,43 +1,18 @@
+ import { useRef } from 'react'
++import { Link } from 'react-router-dom'
+ import { motion, useInView } from 'motion/react'
+ import { ArrowUpRight } from 'lucide-react'
+-import journalDrawing from '../assets/journal-drawing.png'
+-import journalLight from '../assets/journal-light.png'
+-import journalSite from '../assets/journal-site.png'
++import { getEntry } from '../data/journal.js'
+ 
+ const EASE = [0.16, 1, 0.3, 1]
+ 
+-const NOTES = [
+-  {
+-    img: journalDrawing,
+-    alt: 'Hand-drawn floor plan on tracing paper under warm lamp light',
+-    date: 'June 2026',
+-    length: '6 min read',
+-    title: 'Why we still draw by hand first',
+-    excerpt:
+-      'The pencil is slower than the mouse, and that is the point. Speed hides decisions; a hand drawing exposes every one of them.',
+-  },
+-  {
+-    img: journalLight,
+-    alt: 'Sunlight falling through a narrow concrete aperture onto a bare wall',
+-    date: 'March 2026',
+-    length: '4 min read',
+-    title: 'A year of measuring light in one room',
+-    excerpt:
+-      'We photographed the same wall at noon, every day, for a year. What the archive taught us about apertures — and about patience.',
+-  },
+-  {
+-    img: journalSite,
+-    alt: 'Small white concept model held against a blurred grassland site',
+-    date: 'November 2025',
+-    length: '8 min read',
+-    title: 'The first site visit is the whole project',
+-    excerpt:
+-      'Everything a building will become is already present in the first hour on site. Notes on learning to notice it.',
+-  },
++const FEATURED = [
++  'why-we-still-draw-by-hand-first',
++  'a-year-of-measuring-light-in-one-room',
++  'the-first-site-visit-is-the-whole-project',
+ ]
+ 
+-function NoteCard({ note, index }) {
++function NoteCard({ entry, index }) {
+   const ref = useRef(null)
+   const inView = useInView(ref, { once: true, margin: '-60px' })
+ 
+@@ -49,25 +24,27 @@
+       animate={inView ? { y: 0, opacity: 1 } : {}}
+       transition={{ duration: 0.8, delay: index * 0.1, ease: EASE }}
+     >
+-      <a className="note-link" href="#journal" aria-label={`Read: ${note.title}`}>
++      <Link className="note-link" to={`/journal/${entry.slug}`} aria-label={`Read: ${entry.title}`}>
+         <div className="note-media">
+-          <img src={note.img} alt={note.alt} loading="lazy" />
++          <img src={entry.img} alt={entry.alt} loading="lazy" />
+         </div>
+         <div className="note-head">
+-          <span className="note-date">{note.date}</span>
+-          <span className="note-length">{note.length}</span>
++          <span className="note-date">{entry.date}</span>
++          <span className="note-length">{entry.readTime}</span>
+         </div>
+         <h3 className="note-title">
+-          {note.title}
++          {entry.title}
+           <ArrowUpRight className="note-arrow" size={15} strokeWidth={1.75} aria-hidden="true" />
+         </h3>
+-        <p className="note-excerpt">{note.excerpt}</p>
+-      </a>
++        <p className="note-excerpt">{entry.deck}</p>
++      </Link>
+     </motion.article>
+   )
+ }
+ 
+ export default function Journal() {
++  const entries = FEATURED.map(getEntry)
++
+   return (
+     <section className="section journal" id="journal">
+       <div className="sheet-label">
+@@ -80,10 +57,13 @@
+           Writing from the practice — on drawing, light, and the slow parts of
+           building that never make the photographs.
+         </p>
++        <Link className="journal-all" to="/journal">
++          All entries <ArrowUpRight size={14} strokeWidth={1.75} />
++        </Link>
+       </div>
+       <div className="journal-grid">
+-        {NOTES.map((n, i) => (
+-          <NoteCard key={n.title} note={n} index={i} />
++        {entries.map((entry, i) => (
++          <NoteCard key={entry.slug} entry={entry} index={i} />
+         ))}
+       </div>
+     </section>
+diff --color -ruN src/sections/Navbar.jsx src/sections/Navbar.jsx
+--- src/sections/Navbar.jsx	2026-07-16 19:16:03.117870393 +0000
++++ src/sections/Navbar.jsx	2026-07-16 19:17:29.390990600 +0000
+@@ -13,7 +13,7 @@
+   { label: 'Process', hash: 'process' },
+   { label: 'The Studio', hash: 'studio' },
+   { label: 'Recognition', hash: 'recognition' },
+-  { label: 'Journal', hash: 'journal' },
++  { label: 'Journal', to: '/journal' },
+   { label: 'Contact', hash: 'contact' },
+ ]
+ 
+@@ -104,14 +104,20 @@
+           <ul>
+             {MENU_LINKS.map((link, i) => (
+               <motion.li
+-                key={link.hash}
++                key={link.label}
+                 initial={{ y: 20, opacity: 0 }}
+                 animate={{ y: 0, opacity: 1 }}
+                 transition={{ duration: 0.6, delay: 0.08 + i * 0.05, ease: EASE }}
+               >
+-                <button type="button" className="menu-link" onClick={() => goTo(link.hash)}>
+-                  {link.label}
+-                </button>
++                {link.to ? (
++                  <Link className="menu-link" to={link.to} onClick={onClose}>
++                    {link.label}
++                  </Link>
++                ) : (
++                  <button type="button" className="menu-link" onClick={() => goTo(link.hash)}>
++                    {link.label}
++                  </button>
++                )}
+               </motion.li>
+             ))}
+           </ul>
