@@ -1,11 +1,11 @@
-import courtyard from '../assets/project-courtyard.png'
-import pavilion from '../assets/project-pavilion.png'
-import chapel from '../assets/project-chapel.png'
-import hillside from '../assets/project-hillside.png'
-import detailCourtyard from '../assets/detail-courtyard.png'
-import detailPavilion from '../assets/detail-pavilion.png'
-import detailChapel from '../assets/detail-chapel.png'
-import detailHillside from '../assets/detail-hillside.png'
+import courtyard from '../assets/project-courtyard.webp'
+import pavilion from '../assets/project-pavilion.webp'
+import chapel from '../assets/project-chapel.webp'
+import hillside from '../assets/project-hillside.webp'
+import detailCourtyard from '../assets/detail-courtyard.webp'
+import detailPavilion from '../assets/detail-pavilion.webp'
+import detailChapel from '../assets/detail-chapel.webp'
+import detailHillside from '../assets/detail-hillside.webp'
 
 export const PROJECTS = [
   {

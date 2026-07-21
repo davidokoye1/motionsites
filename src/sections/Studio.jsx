@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, useInView } from 'motion/react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import studioImg from '../assets/studio.png'
+import studioImg from '../assets/studio.webp'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 

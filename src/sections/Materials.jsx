@@ -1,9 +1,9 @@
 import { useState, useRef } from 'react'
 import { motion, useInView } from 'motion/react'
-import matConcrete from '../assets/mat-concrete.png'
-import matGlass from '../assets/mat-glass.png'
-import matTimber from '../assets/mat-timber.png'
-import matStone from '../assets/mat-stone.png'
+import matConcrete from '../assets/mat-concrete.webp'
+import matGlass from '../assets/mat-glass.webp'
+import matTimber from '../assets/mat-timber.webp'
+import matStone from '../assets/mat-stone.webp'
 
 const EASE = [0.16, 1, 0.3, 1]
 

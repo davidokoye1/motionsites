@@ -3,7 +3,7 @@ import { motion } from 'motion/react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import heroImage from '../assets/hero.png'
+import heroImage from '../assets/hero.webp'
 import { scrollToTarget } from '../lib/scroll.js'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
